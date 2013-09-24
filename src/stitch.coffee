@@ -14,7 +14,7 @@ class Stitch
   # Private
 
   walk: (path, parent = path, result = []) ->
-    return unless fs.existsSync(path)
+    return unless npath.existsSync(path)
     for child in fs.readdirSync(path)
       child = npath.join(path, child)
       stat  = fs.statSync(child)
@@ -28,7 +28,7 @@ class Stitch
 class Module
   constructor: (@filename, @parent) ->
     @ext = npath.extname(@filename).slice(1)
-    @id  = modulerize(@filename.replace(npath.join(@parent, npath.sep), ''))
+    @id  = modulerize(@filename.replace(npath.join(@parent, '/'), ''))
     
   compile: ->
     compilers[@ext](@filename)
